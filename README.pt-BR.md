@@ -59,7 +59,7 @@ Estes limites vêm do próprio Claude Code, e nenhum hook consegue mudá-los:
 - Ferramentas MCP que exigem interação do usuário sempre pedem.
 - O `/auto-accept` roda pela ferramenta PowerShell, que vem ligada por padrão no Windows. Se você desligou com `CLAUDE_CODE_USE_POWERSHELL_TOOL=0`, o comando não funciona. O hook continua funcionando.
 
-Testado no Claude Code 2.1.295 (Windows 11), em modo headless pelo CLI (`claude -p`): o hook aprova Bash, Write e escritas na pasta protegida `.claude`, e depois de `/auto-accept off` a chamada deixa de ser aprovada. A confirmação no diálogo interativo do Desktop está pendente.
+Testado no Claude Code 2.1.295 (Windows 11), em modo headless pelo CLI (`claude -p`): o hook aprova Bash, Write e escritas na pasta protegida `.claude`, e depois de `/auto-accept off` a chamada deixa de ser aprovada. Também confirmado no app Desktop interativo, em modo Manual: nenhum diálogo de permissão apareceu.
 
 ## Log
 
