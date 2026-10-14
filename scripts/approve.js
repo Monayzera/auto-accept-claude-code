@@ -16,7 +16,7 @@ const ALLOW_OUTPUT = JSON.stringify({
 
 function readStdin() {
   try {
-    return fs.readFileSync(0, 'utf8').replace(/^﻿/, '');
+    return fs.readFileSync(0, 'utf8').replace(/^\uFEFF/, '');
   } catch (error) {
     return '';
   }
@@ -45,7 +45,7 @@ function isEnabled(dataDir) {
     return error && error.code === 'ENOENT';
   }
   try {
-    const state = JSON.parse(raw.replace(/^﻿/, ''));
+    const state = JSON.parse(raw.replace(/^\uFEFF/, ''));
     return Boolean(state) && state.enabled === true;
   } catch (error) {
     return false;

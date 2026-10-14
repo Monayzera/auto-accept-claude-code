@@ -51,7 +51,8 @@ function Get-DataDir {
 function Test-Enabled([string]$DataDir) {
     $statePath = Join-Path $DataDir 'state.json'
     try {
-        if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) { return $true }
+        if (-not (Test-Path -LiteralPath $statePath)) { return $true }
+        if (-not (Test-Path -LiteralPath $statePath -PathType Leaf)) { return $false }
         $raw = [System.IO.File]::ReadAllText($statePath, $Utf8NoBom).TrimStart([char]0xFEFF)
         $state = $raw | ConvertFrom-Json
         return ((Get-Field $state 'enabled') -is [bool]) -and ((Get-Field $state 'enabled') -eq $true)
@@ -62,8 +63,10 @@ function Test-Enabled([string]$DataDir) {
 
 function Test-ShouldApprove($HookEvent) {
     if ($null -eq $HookEvent) { return $false }
-    $eventName = Get-Field $HookEvent 'hook_event_name'
-    if (($null -ne $eventName) -and ($eventName -cne 'PermissionRequest')) { return $false }
+    if ($null -ne $HookEvent.PSObject.Properties['hook_event_name']) {
+        $eventName = Get-Field $HookEvent 'hook_event_name'
+        if (-not ($eventName -is [string]) -or ($eventName -cne 'PermissionRequest')) { return $false }
+    }
     $toolName = Get-Field $HookEvent 'tool_name'
     if (-not ($toolName -is [string]) -or $toolName -eq '') { return $false }
     if ($SkippedTools -ccontains $toolName) { return $false }
@@ -102,7 +105,7 @@ function Write-ApprovalLog([string]$DataDir, $HookEvent) {
         } catch {
         }
         $line = @(
-            [DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ss.fffZ'),
+            [DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ss.fffZ', [System.Globalization.CultureInfo]::InvariantCulture),
             (Format-Clean (Get-Field $HookEvent 'session_id')),
             (Format-Clean (Get-Field $HookEvent 'permission_mode')),
             (Format-Clean (Get-Field $HookEvent 'tool_name')),
