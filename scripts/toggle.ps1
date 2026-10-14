@@ -10,7 +10,8 @@ $RecentLines = 10
 
 function Get-State([string]$StatePath) {
     try {
-        if (-not (Test-Path -LiteralPath $StatePath -PathType Leaf)) { return 'ON' }
+        if (-not (Test-Path -LiteralPath $StatePath)) { return 'ON' }
+        if (-not (Test-Path -LiteralPath $StatePath -PathType Leaf)) { return 'OFF (state.json is not a file, delete it and run /auto-accept on)' }
         $raw = [System.IO.File]::ReadAllText($StatePath, $Utf8NoBom).TrimStart([char]0xFEFF)
         $state = $raw | ConvertFrom-Json
         $property = $state.PSObject.Properties['enabled']
@@ -28,7 +29,11 @@ function Set-State([string]$Dir, [string]$StatePath, [bool]$Enabled) {
     $tempPath = $StatePath + '.' + [System.Guid]::NewGuid().ToString('N') + '.tmp'
     try {
         [System.IO.File]::WriteAllText($tempPath, $json, $Utf8NoBom)
-        Move-Item -LiteralPath $tempPath -Destination $StatePath -Force
+        if ([System.IO.File]::Exists($StatePath)) {
+            [System.IO.File]::Replace($tempPath, $StatePath, [NullString]::Value)
+        } else {
+            [System.IO.File]::Move($tempPath, $StatePath)
+        }
     } finally {
         if (Test-Path -LiteralPath $tempPath) { Remove-Item -LiteralPath $tempPath -Force -ErrorAction SilentlyContinue }
     }
