@@ -1,0 +1,12 @@
+{
+  "name": "auto-accept",
+  "version": "0.1.0",
+  "description": "Answers Claude Code permission prompts with Allow (once) while you stay in Manual mode. Never answers AskUserQuestion or ExitPlanMode.",
+  "author": {
+    "name": "Monayzera"
+  },
+  "homepage": "https://github.com/Monayzera/auto-accept-claude-code",
+  "repository": "https://github.com/Monayzera/auto-accept-claude-code",
+  "license": "MIT",
+  "keywords": ["permissions", "auto-accept", "hooks", "windows"]
+}

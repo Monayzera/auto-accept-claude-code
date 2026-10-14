@@ -1,0 +1,14 @@
+{
+  "name": "monayzera-plugins",
+  "description": "Claude Code plugins by Monayzera.",
+  "owner": {
+    "name": "Monayzera"
+  },
+  "plugins": [
+    {
+      "name": "auto-accept",
+      "source": "./",
+      "description": "Answers Claude Code permission prompts with Allow (once) while you stay in Manual mode."
+    }
+  ]
+}
