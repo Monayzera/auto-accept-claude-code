@@ -59,7 +59,7 @@ These come from Claude Code itself, and no hook can change them:
 - MCP tools that require user interaction always prompt.
 - `/auto-accept` runs through the PowerShell tool, which is on by default on Windows. If you turned it off with `CLAUDE_CODE_USE_POWERSHELL_TOOL=0`, the command does not work. The hook still does.
 
-Tested on Claude Code 2.1.295 (Windows 11): the hook approves Bash, Write and writes to the protected `.claude` folder, and after `/auto-accept off` the prompt is shown again.
+Tested on Claude Code 2.1.295 (Windows 11), headless through the CLI (`claude -p`): the hook approves Bash, Write and writes to the protected `.claude` folder, and after `/auto-accept off` the call is no longer approved. Confirmation in the interactive Desktop dialog is pending.
 
 ## Log
 
