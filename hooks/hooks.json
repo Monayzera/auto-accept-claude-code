@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cmd.exe",
+            "args": ["/d", "/c", "${CLAUDE_PLUGIN_ROOT}/scripts/run.cmd"],
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
