@@ -1,6 +1,6 @@
 {
   "name": "auto-accept",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Answers Claude Code permission prompts with Allow (once) while you stay in Manual mode. Never answers AskUserQuestion or ExitPlanMode.",
   "author": {
     "name": "Monayzera"

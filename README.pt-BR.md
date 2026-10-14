@@ -76,7 +76,7 @@ scripts/toggle.ps1        on / off / status
 skills/auto-accept/       o comando /auto-accept
 ```
 
-O Node.js é opcional. Sem ele, entra o handler em PowerShell, que adiciona cerca de 0,3 s por prompt.
+O Node.js é opcional. Sem ele, entra o handler em PowerShell, que adiciona cerca de 0,4 s por prompt.
 
 ## Desinstalar
 
@@ -88,7 +88,7 @@ Ou dentro do Claude Code: `/plugin uninstall auto-accept@monayzera-plugins`.
 
 ## Aviso
 
-Com o auto-accept ligado, qualquer comando que o Claude decidir rodar é aprovado sem você ver. Isso inclui comandos sugeridos por uma página web ou arquivo que o Claude leu. Use `/auto-accept off` ao trabalhar com conteúdo não confiável e confira o log.
+Com o auto-accept ligado, qualquer comando que o Claude decidir rodar é aprovado sem você ver. Isso inclui comandos sugeridos por uma página web ou arquivo que o Claude leu. Também inclui chamadas de sessões que não conseguem mostrar prompt, como subagentes em segundo plano, que o Claude Code negaria por padrão. Use `/auto-accept off` ao trabalhar com conteúdo não confiável e confira o log.
 
 ## Licença
 
